@@ -28,7 +28,9 @@ class Query(object):
     to structure the query information into a format the NEOSearcher can use for date search.
     """
 
-    Selectors = namedtuple('Selectors', ['date_search', 'number', 'filters', 'return_object'])
+    Selectors = namedtuple(
+        'Selectors', ['date_search', 'number', 'filters', 'return_object'])
+
     DateSearch = namedtuple('DateSearch', ['type', 'values'])
     ReturnObjects = {'NEO': NearEarthObject, 'Path': OrbitPath}
 
@@ -53,7 +55,8 @@ class Query(object):
         """
 
         # TODO: Translate the query parameters into a QueryBuild.Selectors object
-        date_search = Query.DateSearch(DateSearch.equals.name, self.date) if self.date else Query.DateSearch(DateSearch.between.name, [self.start_date, self.end_date])
+        date_search = Query.DateSearch(DateSearch.equals.name, self.date) if self.date else Query.DateSearch(
+            DateSearch.between.name, [self.start_date, self.end_date])
 
         return_object = Query.ReturnObjects.get(self.return_object)
 
@@ -129,7 +132,7 @@ class Filter(object):
         :param results: List of Near Earth Object results
         :return: filtered list of Near Earth Object results
         """
-        # TODO: Takes a list of NearEarthObjects and applies the value of its filter operation to the 
+        # TODO: Takes a list of NearEarthObjects and applies the value of its filter operation to the
         filtered_list = []
         for neo in results:
             operation = Filter.Operators.get(self.operation)
@@ -180,9 +183,11 @@ class NEOSearcher(object):
         date = query.date_search.values
         list_of_neos = []
         if self.date_search_type == DateSearch.equals.name:
-            list_of_neos = self.apply_dateseaerch_equal(self.date_to_path_map, date)
+            list_of_neos = self.apply_dateseaerch_equal(
+                self.date_to_path_map, date)
         elif self.date_search_type == DateSearch.between.name:
-            list_of_neos = self.apply_datesearch_between(self.date_to_path_map, date[0], date[1])
+            list_of_neos = self.apply_datesearch_between(
+                self.date_to_path_map, date[0], date[1])
 
         distance_filter = None
         for a_filter in query.filters:
@@ -221,7 +226,8 @@ class NEOSearcher(object):
         return result
 
     def return_neo_from_orbit_path(self, orbit_paths):
-        result = [self.db.name_to_neo_map.get(path.neo_name) for path in orbit_paths]
+        result = [self.db.name_to_neo_map.get(
+            path.neo_name) for path in orbit_paths]
         return result
 
     def return_orbit_paths_from_neos(self, neos):

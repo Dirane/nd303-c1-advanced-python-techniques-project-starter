@@ -200,6 +200,7 @@ class NEOSearcher(object):
             if a_filter.field == 'distance':
                 distance_filter = a_filter
                 continue
+
             list_of_neos = a_filter.apply(list_of_neos)
         orbits = self.return_orbit_paths_from_neos(list_of_neos)
 

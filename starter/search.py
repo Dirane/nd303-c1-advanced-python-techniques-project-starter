@@ -55,6 +55,7 @@ class Query(object):
         """
 
         # TODO: Translate the query parameters into a QueryBuild.Selectors object
+        #date_search = Query.DateSearch(DateSearch.equals.name, self.date)
         date_search = Query.DateSearch(DateSearch.equals.name, self.date) if self.date else Query.DateSearch(
             DateSearch.between.name, [self.start_date, self.end_date])
 

@@ -64,6 +64,7 @@ class Query(object):
         return_object = Query.ReturnObjects.get(self.return_object)
 
         filters = []
+
         if self.filter:
             filter_options = Filter.create_filter_options(self.filter)
             for k, v in filter_options.items():

@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 from enum import Enum
 import operator
 import collections
@@ -42,7 +42,9 @@ class Query(object):
         self.date = kwargs.get('date', None)
         self.end_date = kwargs.get('end_date', None)
         self.start_date = kwargs.get('start_date', None)
+
         self.filter = kwargs.get('filter', None)
+
         self.number = kwargs.get('number', None)
         self.return_object = kwargs.get('return_object', None)
 
@@ -81,6 +83,7 @@ class Filter(object):
     """
     Options = {
         # TODO: Create a dict of filter name to the NearEarthObject or OrbitalPath property
+
         'is_hazardous': 'is_potentially_hazardous_asteroid',
         'diameter': 'diameter_min_km',
         'distance': 'miss_distance_kilometers'
@@ -180,6 +183,7 @@ class NEOSearcher(object):
         # TODO: Write instance methods that get_objects can use to implement the two types of DateSearch your project
         # TODO: needs to support that then your filters can be applied to. Remember to return the number specified in
         # TODO: the Query.Selectors as well as in the return_type from Query.Selectors
+
         self.date_search_type = query.date_search.type
         date = query.date_search.values
         list_of_neos = []

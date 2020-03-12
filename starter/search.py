@@ -167,7 +167,8 @@ class NEOSearcher(object):
         self.db = db
         # TODO: What kind of an instance variable can we use to connect DateSearch to how we do search?
         self.date_search_type = None
-        self.date_to_path_map = dict(db.date_to_path_map)
+        self.date_to_path_map = db.db.get_date_neos_map
+        self.name_to_neos = db.get_name_to_neo_map()
 
     def get_objects(self, query):
         """
@@ -233,7 +234,7 @@ class NEOSearcher(object):
         return result
 
     def return_neo_from_orbit_path(self, orbit_paths):
-        result = [self.db.name_to_neo_map.get(
+        result = [self.name_to_neos.get(
             path.neo_name) for path in orbit_paths]
         return result
 
